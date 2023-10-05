@@ -1,4 +1,4 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,4 +39,34 @@
 
 .read-the-docs {
   color: #888;
+} */
+
+
+/* .home {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.image img{
+  background-color: white;
+} */
+
+/* .h-text {
+  background-color: blue;
+
+} */
+
+/* .p {
+  padding-top: 10rem;
+  padding-right: 3rem;
+} */
+
+#images-log {
+  display: flex;
+  justify-content: flex-start; /* Align items to the left */
+}
+
+#login-sighup {
+  margin-left: 20px; /* Adjust the margin as needed */
 }

@@ -1,13 +1,13 @@
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import LoginForm from "./LoginForm";
-import SignupForm from "./SignupForm"; // Import the SignupForm component
-
+        
 function Homepage() {
   const [users, setUsers] = useState([]);
-
+        
   useEffect(() => {
-    // Fetch the list of users when the component mounts
     axios
       .get("http://127.0.0.1:5000/users")
       .then((response) => {
@@ -18,49 +18,50 @@ function Homepage() {
       });
   }, []);
 
-  return (
-    <div>
-      <div className="flex justify-between items-center bg-white-800 p-1">
-        <h1 className="text-2xl font-bold text-customBlue">ChatWave</h1>
-        <nav className="flex space-x-4">
-          <a href="#" className="text-black">
-            services
-          </a>
-          <a href="#" className="text-black">
-            help center
-          </a>
-        </nav>
-      </div>
-
-      <div className="flex justify-center items-center h-screen flex-col text-center">
-        <img
-          className="w-90 h-80"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwoOybZyR8PaEZi9DSPbDYOd4HYLctFEvd2w&usqp=CAU"
-          alt="ChatWave Logo"
-        />
-        <p className="text-7xl font-bold mb-2 text-customBlue">ChatWave.</p>
-        <button className="bg-white hover:bg-blue-700 text-customBlue font-bold py-2 px-4 rounded">
-          LOG IN
-        </button>
-        <p>LIFE ON LINE</p>
-
-        {/* Render the LoginForm component */}
-        <LoginForm />
-
-        {/* Render the SignupForm component */}
-        <SignupForm />
-
-        <h2>List of Users:</h2>
-        <ul>
-          {users.map((user) => (
-            <li key={user.id}>
-              {user.username} - {user.email}
-            </li>
-          ))}
-        </ul>
-      </div>
+return (
+  <>
+    <div className="bg-white p-4 flex justify-between items-center">
+      <h1 className="text-2xl font-bold text-blue-400">ChatWave</h1>
+      <nav className="flex space-x-4">
+        <a href="#" className="text-black">
+          Services
+        </a>
+        <a href="#" className="text-black">
+          Help Center
+        </a>
+      </nav>
     </div>
+    <div className="m-12">
+      <div className="bg-white min-h-screen">
+        <div className="flex flex-col h-screen  justify-between items-center">
+          <div className="md:flex  m-5">
+            <div className="object-contain image">
+              <img
+                className="w-full h-auto object-contain"
+                  src="/image/image__1_-removebg-preview (1).png"
+                  alt="ChatWave Logo"
+                />
+
+                <div className="text-center md:text-left m-6">
+                  <p className="text-4xl md:text-7xl font-bold mb-2 text-blue-400 my-6 py-6">
+                    ChatWave.
+                  </p>
+                  {/* Use Link component to navigate to the login page */}
+                  <Link
+                    to="/login"
+                    className="bg-transparent hover:bg-blue-400 text-blue-500 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                  >
+                    LogIn
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
-
+        
 export default Homepage;
+           
