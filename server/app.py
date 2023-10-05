@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, make_response
 from flask_migrate import Migrate
 from flask_socketio import SocketIO
-from models import db,User, Chatroom, Message
+from models import db,User, Chatroom, Message, Friend
 from flask_restful import Resource, Api, reqparse
 from flask_jwt_extended import jwt_required, create_access_token, JWTManager
 from flask_cors import CORS
@@ -240,9 +240,22 @@ class Login(Resource):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-api = Api(app)
 api.add_resource(Login, '/login')
+
+class UserFriendsResource(Resource):
+    def get(self, user_id):
+        user = User.query.get(user_id)
+        if user is None:
+            return {"message": "User not found"}, 404
+
+        friends = Friend.query.filter_by(user_id=user_id).all()
+
+        friend_list = [{"friend_id": friend.id, "friend_name": friend.user.username} for friend in friends]
+
+        return {"user_id": user.id, "username": user.username, "friends": friend_list}
+
+api.add_resource(UserFriendsResource, '/users/<int:user_id>/friends')
     
 
-if __name__ == '__main__':
+if __name__ == '__main__':                                       
     app.run(host='0.0.0.0', port=5000, debug=True)
