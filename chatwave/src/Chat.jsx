@@ -41,51 +41,58 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
-const Chat = () => {
+const socket = io('http://localhost:5000'); // Replace with your server URL
+
+const Chat = ({ currentUser, recipientUser }) => {
+  const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  const [messageInput, setMessageInput] = useState('');
-  const socket = io('http://localhost:5000');
 
-  useEffect(() => {
-    // Listen for new messages from the server
-    socket.on('new_message', (message) => {
-      setMessages([...messages, message]);
-    });
-
-    return () => {
-      // Clean up the socket connection when the component unmounts
-      socket.disconnect();
-    };
-  }, [messages]);
-
-  const sendMessage = () => {
-    if (messageInput.trim() !== '') {
+  const handleMessageSend = () => {
+    if (message.trim() !== '') {
       const newMessage = {
-        user: { username: 'Current User' }, // Replace with actual user info
-        message_content: messageInput,
+        content: message,
+        sender: currentUser,
+        recipient: recipientUser,
       };
-      socket.emit('new_message', newMessage);
-      setMessageInput('');
+
+      setMessages([...messages, newMessage]);
+      setMessage('');
+
+      // Emit the new message to the server
+      socket.emit('private_message', newMessage);
     }
   };
 
+  useEffect(() => {
+    // Set up event listener for incoming messages
+    socket.on('private_message', (receivedMessage) => {
+      setMessages([...messages, receivedMessage]);
+    });
+
+    // Clean up the event listener when the component is unmounted
+    return () => {
+      socket.off('private_message');
+    };
+  }, [messages]);
+
   return (
     <div>
+      <h3>Chatting with: {recipientUser}</h3>
       <div className="chat-messages">
-        {messages.map((message, index) => (
+        {messages.map((msg, index) => (
           <div key={index}>
-            {message.user.username}: {message.message_content}
+            <strong>{msg.sender}:</strong> {msg.content}
           </div>
         ))}
       </div>
-      <div className="input-container">
+      <div>
         <input
           type="text"
-          value={messageInput}
-          onChange={(e) => setMessageInput(e.target.value)}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           placeholder="Type a message..."
         />
-        <button onClick={sendMessage}>Send</button>
+        <button onClick={handleMessageSend}>Send</button>
       </div>
     </div>
   );
