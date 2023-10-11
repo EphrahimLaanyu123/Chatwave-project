@@ -44,7 +44,7 @@ class Chatroom(db.Model, SerializerMixin):
 class Message(db.Model, SerializerMixin):
     __tablename__ ='messages'
 
-    serialize_rules = ('-user.user_messages', '-chatroom.chatroom_messages',)
+
 
     id = db.Column(db.Integer, primary_key=True)
     message_content = db.Column(db.String)
