@@ -62,4 +62,3 @@ class Friend(db.Model, SerializerMixin):
     serialize_rules = ('-user.user_friends',)
     
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
