@@ -26,7 +26,7 @@ class User(db.Model, SerializerMixin):
         return f'<User {self.username}| email: {self.email}>'
     
 class Chatroom(db.Model, SerializerMixin):
-    __tablename__ = 'chatroom
+    __tablename__ = 'chatrooms'
 
     serialize_rules = ('-chatroom_messages.chatroom',)
 
