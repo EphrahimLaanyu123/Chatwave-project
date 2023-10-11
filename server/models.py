@@ -48,8 +48,7 @@ class Message(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     message_content = db.Column(db.String)
-    chatroom_id = db.Column(db.Integer, db.ForeignKey('chatrooms.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    chatroom_id = , db.ForeignKey('users.id'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())    
 
