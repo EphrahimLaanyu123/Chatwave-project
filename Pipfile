@@ -12,6 +12,7 @@ flask-serializer = "*"
 sqlalchemy-serializer = "*"
 flask-socketio = "*"
 websockets = "*"
+gunicorn = "*"
 
 [dev-packages]
 
