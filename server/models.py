@@ -16,7 +16,7 @@ class User(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    #define relationship between user and messages
+    #define relationship between user and messages    #define relationship between user and messages
     user_messages = db.relationship('Message', backref='user')
     
     #define relationship between user and friends
