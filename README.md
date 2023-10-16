@@ -34,10 +34,8 @@ Start the Flask server with flask run.
 The backend server will run on http://localhost:5000.
 
 ## Frontend Setup
-Navigate to the frontend directory.
-Install the required Node.js packages using npm install.
-Start the React development server with npm start.
-The frontend application will run on http://localhost:3000.
+
+The frontend application will run on https://chat-o8bt.onrender.com/
 
 ## Usage
 Access the ChatWave app by opening http://localhost:3000 in your web browser.
